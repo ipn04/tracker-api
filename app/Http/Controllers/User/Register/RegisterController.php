@@ -27,7 +27,8 @@ class RegisterController extends Controller
         $validator = Validator::make($request->all(), [
             'username' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:6|confirmed',
+            'password' => 'required|string|min:6',
+
         ]);
 
         if ($validator->fails()) {
@@ -44,7 +45,7 @@ class RegisterController extends Controller
 
          return (new UserResource($user))->additional([
              'meta' => [
-                 'token' => $token,
+                 'access_token' => $token,
                  'token_type' => 'bearer',
                  'expires_in' => $this->expiresIn,
              ]
